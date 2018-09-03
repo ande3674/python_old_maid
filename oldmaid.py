@@ -1,6 +1,6 @@
-import card
-import deck
 import oldmaid_deck
+import computer_hand
+import player_hand
 
 def gamePlay():
 
@@ -13,25 +13,43 @@ def gamePlay():
     #print(playerHand)
 
     ### Display the player's hand
-    print("Here is your hand: ")
+    print("Here is your initial deal: ")
     print(playerHand)
 
     ### Remove the matches
-    print("I will remove all of your matches now...")
-    playerHand = removeMatches(playerHand)
-    computerHand = removeMatches(computerHand)
+    input("I will remove all of your matches now... (PRESS ENTER)")
+    # Now use our HAND CLASSES TO MANAGE THE HANDS
+    playerHandClassVersion = player_hand.PlayerHand(playerHand)
+    computerHandClassVersion = computer_hand.ComputerHand(computerHand)
 
     ### Display new hand
     print("Here is your hand without matches... ")
-    print(playerHand)
+    playerHandClassVersion.displayHand()
 
-def removeMatches(hand):
+    ### Now we play...
+    ### Pick a card from the computer's hand
+    size = computerHandClassVersion.getComputerHandSize()
+    print("Pick a card from the computer, enter a card number between 1 and", size)
+    index = input(" ")
+    while not (1 <= int(index) <= size):
+        index = input("Invalid number, try again.")
 
-    for card in hand:
-        if hand.count(card) == 2:
-            hand.remove(card)
-            hand.remove(card)
-    return hand
+    ### Check for / discard any new matches
+    tempCard = computerHandClassVersion.removeCard(int(index) - 1)
+    print("You picked this card: '", tempCard, "' and we will now check for & remove any matches... (PRESS ENTER)")
+    #playerHand.append(tempCard)
+    #playerHand = removeMatches(playerHand)
+    playerHandClassVersion.addCardRemoveMatches(tempCard)
+
+    print("Here is your updated hand: ")
+    playerHandClassVersion.displayHand()
+    input("Press Enter to allow computer to take its turn...(PRESS ENTER)")
+
+
+    ### Computer picks a card from player hand
+    ### Check for / discard any new matches
+    ### Shuffle hand
+    ### Play until 1 card left, declare winner.
 
 
 def test():
