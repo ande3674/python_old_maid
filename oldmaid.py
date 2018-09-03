@@ -1,11 +1,13 @@
 import oldmaid_deck
 import computer_hand
 import player_hand
+import random
 
 def gamePlay():
 
     ### Play Old Maid...
-    print("Are you ready to play? Dealing hands...")
+    print("Are you ready to play OLD MAID? Dealing hands...")
+    print()
     computerHand, playerHand = oldmaid_deck.OldMaidDeck().deallHands()
 
     #print(computerHand)
@@ -15,9 +17,11 @@ def gamePlay():
     ### Display the player's hand
     print("Here is your initial deal: ")
     print(playerHand)
+    print()
 
     ### Remove the matches
     input("I will remove all of your matches now... (PRESS ENTER)")
+    print()
     # Now use our HAND CLASSES TO MANAGE THE HANDS
     playerHandClassVersion = player_hand.PlayerHand(playerHand)
     computerHandClassVersion = computer_hand.ComputerHand(computerHand)
@@ -25,8 +29,11 @@ def gamePlay():
     ### Display new hand
     print("Here is your hand without matches... ")
     playerHandClassVersion.displayHand()
+    print()
 
     ### Now we play...
+
+    while playerHandClassVersion.getPlayerHandSize() + computerHandClassVersion.getComputerHandSize() > 1:
     ### Pick a card from the computer's hand
     size = computerHandClassVersion.getComputerHandSize()
     print("Pick a card from the computer, enter a card number between 1 and", size)
@@ -40,15 +47,29 @@ def gamePlay():
     #playerHand.append(tempCard)
     #playerHand = removeMatches(playerHand)
     playerHandClassVersion.addCardRemoveMatches(tempCard)
+    print()
 
     print("Here is your updated hand: ")
     playerHandClassVersion.displayHand()
+    print()
+
     input("Press Enter to allow computer to take its turn...(PRESS ENTER)")
 
-
     ### Computer picks a card from player hand
+    pHandSize = playerHandClassVersion.getPlayerHandSize()
+    randomIndex = random.randint(0, pHandSize-1)
+    tempCardForComputer = playerHandClassVersion.removeCard(randomIndex)
+
+    print("The computer picked '", tempCardForComputer, "'")
+    print()
+
+    print("Here is your updated hand: ")
+    playerHandClassVersion.displayHand()
+
     ### Check for / discard any new matches
-    ### Shuffle hand
+    computerHandClassVersion.addCardRemoveMatches(tempCardForComputer)
+
+
     ### Play until 1 card left, declare winner.
 
 

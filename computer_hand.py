@@ -2,12 +2,14 @@ import random
 
 class ComputerHand():
 
-    def __init__(self, card_list):
-        for card in card_list:
-            if card_list.count(card) == 2:
-                card_list.remove(card)
-                card_list.remove(card)
-        self.hand = card_list
+    def __init__(self, cardList):
+        listOfCardsToRemove = []
+        for card in cardList:
+            if cardList.count(card) == 2:
+                listOfCardsToRemove.append(card)
+        for card in listOfCardsToRemove:
+            cardList.remove(card)
+        self.hand = cardList
 
 
     def removeCard(self, index):
