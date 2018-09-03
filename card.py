@@ -2,12 +2,16 @@
 class Card():
 
     def __init__(self, suit, value):
-        self.suit = suit
-        self.value = value
+        self.__suit = suit
+        self.__value = value
 
-    def getSuit(self):
-        return self.suit
-    def getValue(self):
-        return self.value
+    @property
+    def suit(self):
+        return self.__suit
+
+    @property
+    def value(self):
+        return self.__value
+
     def displayCard(self):
-        print(self.value, "of", self.suit)
+        print(self.__value, "of", self.__suit)
