@@ -3,6 +3,12 @@ import computer_hand
 import player_hand
 import random
 
+### Old Maid game
+# The deck can be anything as long as every "card" has a match and there is one
+# single Old Maid card
+# The deck can be set up in deck_items.txt
+# List two of each "card" and one "OLD MAID"
+
 def main():
 
     ### HERE IS THE GAME SETUP ###
