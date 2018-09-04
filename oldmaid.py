@@ -41,7 +41,7 @@ def main():
 def gamePlay(pHand, cHand):
 
     # ### Play Old Maid... ### #
-    # while there are more cards left to pick other than the old maid...
+    # while there are more cards left to pick other than the old maid
     # the while loop should only do one turn per loop
     # must keep track of whose turn it is
     whoseTurn = 'p'
@@ -56,22 +56,20 @@ def gamePlay(pHand, cHand):
             index = input(" ")
             while not (1 <= int(index) <= size):
                 index = input("Invalid number, try again.")
+            tempCard = cHand.removeCard(int(index) - 1)
 
             ### Check for / discard any new matches
-            tempCard = cHand.removeCard(int(index) - 1)
             print("You picked this card: '", tempCard, "' and we will now check for & remove any matches... (PRESS ENTER)")
-            #playerHand.append(tempCard)
-            #playerHand = removeMatches(playerHand)
             pHand.addCardRemoveMatches(tempCard)
             print()
 
+            ### Display current hand
             print("Here is your updated hand: ")
             pHand.displayHand()
             print()
 
-            # change the turn variable
+            ### Change the turn variable and move on to next turn...
             whoseTurn = 'c'
-
             input("Press Enter to allow computer to take its turn...(PRESS ENTER)")
             print()
 
@@ -81,19 +79,22 @@ def gamePlay(pHand, cHand):
             pHandSize = pHand.getPlayerHandSize()
             randomIndex = random.randint(0, pHandSize-1)
             tempCardForComputer = pHand.removeCard(randomIndex)
-
             print("The computer picked '", tempCardForComputer, "'")
             print()
 
+            ### Display current hand
             print("Here is your updated hand: ")
             pHand.displayHand()
             print()
 
-            ### Check for / discard any new matches
+            ### Check for / discard any new matches from the computer's hand (behind the scenes)
+            # Player does not need to know/see this
             cHand.addCardRemoveMatches(tempCardForComputer)
 
+            ### Update whoseTurn variable and move onto next turn...
             whoseTurn = 'p'
 
+    ### While loop ended which means the game is over and we have a winner
     declareWinner(pHand, cHand)
 
 
