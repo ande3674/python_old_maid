@@ -6,24 +6,27 @@ class Deck():
     deck = []
 
     def __init__(self):
-        # Add 52 cards to the deck
-        for s in ('hearts', 'spades', 'diamonds', 'clubs'):
+        # Add cards to the deck from file
+        fin = open('deck_items.txt', 'rt')
+        while True:
+            line = fin.readline()
+            if not line:
+                break
+            self.deck.append(line.strip())
+        fin.close()
 
-            for v in ('A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'):
-                c = card.Card(s, v)
-                self.deck.append(c)
 
         # shuffle the deck
-        random.shuffle(self.deck)
+        #random.shuffle(self.deck)
 
         # for the game of old maid, we must remove one card,
         # which becomes the "old maid" card
-        self.deck.pop(0)
+        # self.deck.pop(0)
 
 
     def displayDeck(self):
         for c in self.deck:
-            c.displayCard()
+            print(c)
 
     def displayHand(self, hand):
         for c in hand:
